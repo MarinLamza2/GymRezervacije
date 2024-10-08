@@ -6,7 +6,7 @@ namespace GymReyevacije.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class KorisniciController : ControllerBase
+    public class KorisnikController : ControllerBase
     {
         // dependency injection
         // 1. definirati privatno svojstvo
@@ -14,7 +14,7 @@ namespace GymReyevacije.Controllers
 
         // dependecy injection
         // 2. proslijediš instancu kroz konstruktor
-        public KorisniciController(GymReyevacijeContext context)
+        public KorisnikController(GymReyevacijeContext context)
         {
             _context = context;
         }
