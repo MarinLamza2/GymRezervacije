@@ -5,6 +5,6 @@ namespace GymReyevacije.Models
     public abstract class Entitet
     {
         [Key] // dio EF ORM-a
-        public int? Sifra { get; set; }
+        public int? Id { get; set; }
     }
 }

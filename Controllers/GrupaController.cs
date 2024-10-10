@@ -6,15 +6,15 @@ namespace GymReyevacije.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class KorisnikController : ControllerBase
+    public class GrupaController : ControllerBase
     {
         // dependency injection
         // 1. definirati privatno svojstvo
-        private readonly GymReyevacijeContext _context;
+        private readonly GymRezevacijeContext _context;
 
         // dependecy injection
         // 2. proslijediš instancu kroz konstruktor
-        public KorisnikController(GymReyevacijeContext context)
+        public GrupaController(GymRezevacijeContext context)
         {
             _context = context;
         }
@@ -23,41 +23,38 @@ namespace GymReyevacije.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_context.Korisnici);
+            return Ok(_context.Grupe);
         }
 
         [HttpGet]
         [Route("{sifra:int}")]
         public IActionResult GetBySifra(int sifra)
         {
-            return Ok(_context.Korisnici.Find(sifra));
+            return Ok(_context.Grupe.Find(sifra));
         }
 
 
 
         [HttpPost]
-        public IActionResult Post(Korisnik korisnik)
+        public IActionResult Post(Grupa grupa)
         {
-            _context.Korisnici.Add(korisnik);
+            _context.Grupe.Add(grupa);
             _context.SaveChanges();
-            return StatusCode(StatusCodes.Status201Created, korisnik);
+            return StatusCode(StatusCodes.Status201Created, grupa);
         }
 
         [HttpPut]
         [Route("{sifra:int}")]
         [Produces("application/json")]
-        public IActionResult Put(int sifra, Korisnik korisnik) 
+        public IActionResult Put(int sifra, Grupa grupa) 
         {
-            var korisnikBaza = _context.Korisnici.Find(sifra);
+            var grupaBaza = _context.Grupe.Find(sifra);
 
             // za sada ručno, kasnije mapper
-            korisnikBaza.Ime = korisnik.Ime;
-            korisnikBaza.Prezime = korisnik.Prezime;
-            korisnikBaza.BrojTelefona = korisnik.BrojTelefona;
-            korisnikBaza.Adresa = korisnik.Adresa;
-            korisnikBaza.Grupa = korisnik.Grupa;
+            grupaBaza.Naziv = grupa.Naziv;
+            grupaBaza.Zaposlenik = grupa.Zaposlenik;
 
-            _context.Korisnici.Update(korisnikBaza);
+            _context.Grupe.Update(grupaBaza);
             _context.SaveChanges();
 
             return Ok(new {poruka = "Uspješno promjenjeno"});
@@ -71,9 +68,9 @@ namespace GymReyevacije.Controllers
         [Produces("application/json")]
         public IActionResult Delete(int sifra)
         {
-            var korisnikBaza = _context.Korisnici.Find(sifra);
+            var grupaBaza = _context.Grupe.Find(sifra);
 
-            _context.Korisnici.Remove(korisnikBaza);
+            _context.Grupe.Remove(grupaBaza);
             _context.SaveChanges();
 
             return Ok(new { poruka = "Uspješno obrisano" });

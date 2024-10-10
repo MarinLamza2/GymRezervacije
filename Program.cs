@@ -11,9 +11,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // dodavanje baze podataka
-builder.Services.AddDbContext<GymReyevacijeContext>(opcije =>
+builder.Services.AddDbContext<GymRezevacijeContext>(opcije =>
 {
-    opcije.UseSqlServer(builder.Configuration.GetConnectionString("GymReyevacijeContext"));
+    opcije.UseSqlServer(builder.Configuration.GetConnectionString("EdunovaContext"));
 });
 
 
