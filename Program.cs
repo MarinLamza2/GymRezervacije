@@ -16,6 +16,14 @@ builder.Services.AddDbContext<GymRezevacijeContext>(opcije =>
     opcije.UseSqlServer(builder.Configuration.GetConnectionString("EdunovaContext"));
 });
 
+builder.Services.AddCors(opcije =>
+{
+    opcije.AddPolicy("CorsPolicy",
+        builder =>
+            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+    );
+
+});
 
 
 var app = builder.Build();
@@ -37,5 +45,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+// za potrebe produkcije
+app.UseStaticFiles();
+app.UseDefaultFiles();
+app.MapFallbackToFile("index.html");
 
+app.UseCors("CorsPolicy");
 app.Run();
